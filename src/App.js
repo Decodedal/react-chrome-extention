@@ -1,7 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
  
 function App() {
+
+  const [title, setTitle] = useState('');
+  const [headline, setHeadlines] = useState([])
+
+  useEffect(() => {
+    if (typeof window.chrome !== 'undefined') {
+     window.chrome.tabs && window.chrome.tabs.query({
+        active: true,
+        currentWindow: true
+      }, tabs => {
+        window.chrome.tabs.sendMessage(
+          tabs[0].id || 0,
+          { type: 'GET_DOM' },
+          (response) => {
+            setTitle(response.title);
+            setHeadlines(response.headlines);
+          });
+      });
+    } else {
+      // Provide a fallback for non-Chrome environments here
+    }
+  }, []);
+
  return (
    <div className="App">
      <h1>SEO Extension built with React!</h1>
@@ -10,24 +33,26 @@ function App() {
        <li className="SEOValidation">
          <div className="SEOValidationField">
            <span className="SEOValidationFieldTitle">Title</span>
-           <span className="SEOValidationFieldStatus Error">
-             90 Characters
+           <span  className={`SEOValidationFieldStatus ${title.length < 30 || title.length > 65 ? 'Error' : 'Ok'}`}>
+             {title.length} Characters
            </span>
          </div>
          <div className="SEOVAlidationFieldValue">
-           The title of the page
+           {title}
          </div>
        </li>
  
        <li className="SEOValidation">
          <div className="SEOValidationField">
            <span className="SEOValidationFieldTitle">Main Heading</span>
-           <span className="SEOValidationFieldStatus Ok">
-             1
+           <span className={`SEOValidationFieldStatus ${headline.length !== 1 ? 'Error' : 'Ok'}`}>
+             {headline.length}
            </span>
          </div>
          <div className="SEOVAlidationFieldValue">
-           The main headline of the page (H1)
+         <ul>
+           {headline.map((headline, index) => (<li key={index}>{headline}</li>))}
+          </ul>
          </div>
        </li>
      </ul>
