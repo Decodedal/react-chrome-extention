@@ -13,7 +13,9 @@
        "128": "logo192.png"
    },
    "permissions": [
-    "activeTab"
+    "activeTab",
+    "tabs",
+    "nativeMessaging"
  ],
  "content_scripts": [
     {

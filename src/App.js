@@ -25,6 +25,8 @@ function App() {
     }
   }, []);
 
+
+
  return (
    <div className="App">
      <h1>SEO Extension built with React!</h1>
