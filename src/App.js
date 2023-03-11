@@ -24,14 +24,36 @@ function App() {
     } else {
       // Provide a fallback for non-Chrome environments here
     }
-  }, [newSelction]);
+  }, []);
 
 
 const handleX = (key) =>{
-    let splice = userText.splice(key,1);
-    setUserText(splice)
+    let text = [...userText]
+    text.splice(key,1);
+    setUserText(text)
 }
 
+const apiCaller = () =>{
+  var myHeaders = new Headers();
+myHeaders.append("x-api-key", );
+myHeaders.append("Content-Type", "application/json");
+
+var graphql = JSON.stringify({
+  query: "mutation AddNoteMutation(\n        $createdAt: AWSDate!,\n	    $title: String,\n	    $content: String,\n    ){\n        addNote(input: {\n        content: $content,\n        createdAt: $createdAt,        \n        title: $title\n   }) {\n    content\n    createdAt\n    id\n    title\n    updatedAt\n  }\n}\n",
+  variables: {"content":`${userText[0]}`,"createdAt":"2023-02-01","title":"test8"}
+})
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: graphql,
+  redirect: 'follow'
+};
+
+fetch("https://qmwix3f25nbxxen6yz4fpj55q4.appsync-api.us-east-1.amazonaws.com/graphql?x-a", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+}
 
  return (
    <div onMouseUp={()=>setNewSelection(!newSelction)} className="App">
@@ -45,12 +67,13 @@ const handleX = (key) =>{
             return(
               <div className='text-chunk' key={key}>
               <p>{text}</p>
-              <div className='cancle' onClick={(key) => setUserText(userText.splice(key,1))}>X</div>
+              <div className='cancle' onClick={() => handleX(key)}>X</div>
               </div>
             )
           })
           }
      </div>
+     <button onClick={apiCaller}>Make Api call</button>
    </div>
  );
 }
