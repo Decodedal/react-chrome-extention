@@ -5,6 +5,8 @@ function App() {
 
   const [title, setTitle] = useState('');
   const [headline, setHeadlines] = useState([])
+  const [userText, setUserText] = useState([])
+  const [newSelction, setNewSelection] = useState("true")
 
   useEffect(() => {
     if (typeof window.chrome !== 'undefined') {
@@ -18,17 +20,18 @@ function App() {
           (response) => {
             setTitle(response.title);
             setHeadlines(response.headlines);
+            setUserText([...userText, response.userSelection])
           });
       });
     } else {
       // Provide a fallback for non-Chrome environments here
     }
-  }, []);
+  }, [newSelction]);
 
 
 
  return (
-   <div className="App">
+   <div onMouseUp={()=>setNewSelection(!newSelction)} className="App">
      <h1>SEO Extension built with React!</h1>
  
      <ul className="SEOForm">
@@ -57,6 +60,17 @@ function App() {
           </ul>
          </div>
        </li>
+       <div className="SEOVAlidationFieldValue">
+          {userText.length === 1 ?
+          userText
+          :
+          userText.map((text, key)=>{
+            return(
+              <p>text</p>
+            )
+          })
+          }
+       </div>
      </ul>
    </div>
  );

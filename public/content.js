@@ -3,9 +3,15 @@ const messagesFromReactAppListener = (msg, sender, sendResponse) => {
   
     const headlines = Array.from(document.getElementsByTagName("h1")).map(h1 => h1.innerText);
   
+    const getSelectedText = () => window.getSelection().toString();
+    let userSelection = getSelectedText()
+
+    console.log(userSelection)
+    
     const response = {
       title: document.title,
-      headlines
+      headlines,
+      userSelection
     };
   
     sendResponse(response);
