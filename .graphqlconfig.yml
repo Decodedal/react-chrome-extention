@@ -1,0 +1,15 @@
+projects:
+  amplify-todo-delete:
+    schemaPath: src/graphql/schema.json
+    includes:
+      - src/graphql/**/*.js
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: javascript
+        generatedFileName: ''
+        docsFilePath: src/graphql
+        region: us-east-1
+        apiId: exd5pt4pcbfevl4wa5zapb6v3u
+        maxDepth: 2
