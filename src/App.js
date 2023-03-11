@@ -20,7 +20,8 @@ function App() {
           (response) => {
             setTitle(response.title);
             setHeadlines(response.headlines);
-            setUserText([...userText, response.userSelection])
+            setUserText(response.stringArr)
+            console.log(response.stringArr)
           });
       });
     } else {
@@ -61,15 +62,17 @@ function App() {
          </div>
        </li>
        <div className="SEOVAlidationFieldValue">
+        <ul className='text'>
           {userText.length === 1 ?
           userText
           :
           userText.map((text, key)=>{
             return(
-              <p>text</p>
+              <li key={key}>{text}</li>
             )
           })
           }
+          </ul>
        </div>
      </ul>
    </div>

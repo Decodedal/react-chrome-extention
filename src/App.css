@@ -45,3 +45,9 @@ body{
 .SEOValidationFieldTitle{
   font-weight: bolder;
 }
+
+.text{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
