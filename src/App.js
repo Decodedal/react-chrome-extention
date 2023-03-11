@@ -3,9 +3,8 @@ import './App.css';
  
 function App() {
 
-  const [title, setTitle] = useState('');
-  const [headline, setHeadlines] = useState([])
-  const [userText, setUserText] = useState([])
+
+  const [userText, setUserText] = useState(["item one", "item two", "item three"])
   const [newSelction, setNewSelection] = useState("true")
 
   useEffect(() => {
@@ -18,8 +17,6 @@ function App() {
           tabs[0].id || 0,
           { type: 'GET_DOM' },
           (response) => {
-            setTitle(response.title);
-            setHeadlines(response.headlines);
             setUserText(response.stringArr)
             console.log(response.stringArr)
           });
@@ -30,51 +27,30 @@ function App() {
   }, [newSelction]);
 
 
+const handleX = (key) =>{
+    let splice = userText.splice(key,1);
+    setUserText(splice)
+}
+
 
  return (
    <div onMouseUp={()=>setNewSelection(!newSelction)} className="App">
-     <h1>SEO Extension built with React!</h1>
+     <h1>Text grabber tool!</h1>
  
-     <ul className="SEOForm">
-       <li className="SEOValidation">
-         <div className="SEOValidationField">
-           <span className="SEOValidationFieldTitle">Title</span>
-           <span  className={`SEOValidationFieldStatus ${title.length < 30 || title.length > 65 ? 'Error' : 'Ok'}`}>
-             {title.length} Characters
-           </span>
-         </div>
-         <div className="SEOVAlidationFieldValue">
-           {title}
-         </div>
-       </li>
- 
-       <li className="SEOValidation">
-         <div className="SEOValidationField">
-           <span className="SEOValidationFieldTitle">Main Heading</span>
-           <span className={`SEOValidationFieldStatus ${headline.length !== 1 ? 'Error' : 'Ok'}`}>
-             {headline.length}
-           </span>
-         </div>
-         <div className="SEOVAlidationFieldValue">
-         <ul>
-           {headline.map((headline, index) => (<li key={index}>{headline}</li>))}
-          </ul>
-         </div>
-       </li>
-       <div className="SEOVAlidationFieldValue">
-        <ul className='text'>
+     <div className="SEOForm">
           {userText.length === 1 ?
           userText
           :
           userText.map((text, key)=>{
             return(
-              <li key={key}>{text}</li>
+              <div className='text-chunk' key={key}>
+              <p>{text}</p>
+              <div className='cancle' onClick={(key) => setUserText(userText.splice(key,1))}>X</div>
+              </div>
             )
           })
           }
-          </ul>
-       </div>
-     </ul>
+     </div>
    </div>
  );
 }

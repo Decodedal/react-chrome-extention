@@ -1,9 +1,13 @@
-li{
+/* li{
   list-style-type: none;
-}
+} */
 
 body{
   background-color: rgb(215, 215, 215);
+}
+
+h1{
+  text-align: center;
 }
 
 .SEOForm{
@@ -11,43 +15,17 @@ body{
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   display: flex;
   flex-direction: column;
-  height: 200px;
-  align-items: space-evenly;
+  min-height: 200px;
+  align-items: center;
   justify-content: space-evenly;
 }
 
-.SEOValidationField{
+.text-chunk{
   display: flex;
-  justify-content: space-between;
-  margin-right: 1rem;
+  flex-direction: row;
 }
 
-.Error{
-    background-color: red;
-    color: white;
-    border-radius: 10px;
-    min-width: 25%;
-    text-align: center;
-    height: 25px;
-    font-weight: bold;
-}
 
-.Ok{
-    background-color: rgb(0, 255, 102);
-    color: white;
-    border-radius: 10px;
-    min-width: 25%;
-    text-align: center;
-    height: 25px;
-    font-weight: bold;
-}
 
-.SEOValidationFieldTitle{
-  font-weight: bolder;
-}
 
-.text{
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
+
