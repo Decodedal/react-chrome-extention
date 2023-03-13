@@ -1,11 +1,17 @@
-const stringArr =[]
-const getSelectedText = () => window.getSelection().toString();
+//This code lets us store the user selection persistently across extention window refresh 
 
+// const stringArr =[]
+const getSelectedText = () => window.getSelection().toString();
+let userSelection = "null"
+
+// const updateStringArr = () =>{
+//   let userSelection = getSelectedText()
+//   stringArr.push(userSelection)
+//    console.log(stringArr)
+// }
 
 const updateStringArr = () =>{
-  let userSelection = getSelectedText()
-  stringArr.push(userSelection)
-  console.log(stringArr)
+  userSelection = getSelectedText()
 }
 
 
@@ -23,9 +29,7 @@ const messagesFromReactAppListener = (msg, sender, sendResponse) => {
     // console.log(userSelection)
     
     const response = {
-      title: document.title,
-      headlines,
-      stringArr
+      userSelection
     };
   
     sendResponse(response);
